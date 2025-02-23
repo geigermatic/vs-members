@@ -122,3 +122,91 @@ This project is designed to create a lightweight viewer for member and financial
 
 - Ensure the `.env` file is updated with your actual Supabase credentials.
 - Follow the architecture and development guidelines in the README.md for best practices.
+
+
+////////
+Prompt used to create project:
+
+# Project Generation Prompt for Supabase Data Viewer
+
+Please help me create a React + TypeScript application for viewing member and financial data from Supabase. Here are the specifications:
+
+## Project Overview
+- Single page application for viewing member data and financial statistics
+- Uses Supabase for data storage and retrieval
+- Built with React 18, TypeScript, and Vite
+- Includes real-time API metrics display
+
+## Core Requirements
+1. Connect to Supabase database
+2. Display member details
+3. Show financial statistics
+4. Include loading states
+5. Handle errors appropriately
+6. Use TypeScript strict mode
+7. Use real Supabase connection (no mock data)
+
+## Environment Variables
+```env
+VITE_SUPABASE_URL=https://ehdqmnkyiaoqdyifaqma.supabase.co
+VITE_SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVoZHFtbmt5aWFvcWR5aWZhcW1hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwOTk4MDMsImV4cCI6MjA1NTY3NTgwM30.k6N0PQqrvbQ0mJnjDynHaYPTXIfSdBxxeBCLSQGurbw
+```
+
+## Type Definitions
+Need interfaces for:
+1. Member data
+2. Financial health statistics
+3. API metrics
+4. Request/response tracking
+
+## Required Files Structure
+```
+/src
+  /api
+    supabaseClient.ts
+    memberApi.ts
+  /components
+    MemberView.tsx
+    FinancialStats.tsx
+  /types
+    index.ts
+    member.ts
+    financialStats.ts
+  /utils
+    formatters.ts
+  App.tsx
+  main.tsx
+```
+
+## Data Models
+1. Member:
+   - UUID
+   - Name (first, last)
+   - Email
+   - Demographics
+   - Financial info
+
+2. Financial Health Stats:
+   - Monthly records
+   - Various financial metrics
+   - Verascore calculations
+
+## API Requirements
+1. Fetch member data by UUID
+2. Get financial statistics
+3. Track API metrics:
+   - Response times
+   - Data sizes
+   - Status codes
+
+## UI Requirements
+1. Clean, professional design
+2. Loading states
+3. Error handling
+4. API metrics display
+5. Responsive layout
+
+## Testing Data
+Use member UUID: "dc922ded-d0a7-415a-9d4c-f1e8605fce92"
+
+Please generate all necessary files and code to create this application. Include proper error handling, TypeScript types, and API integration.
