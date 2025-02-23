@@ -1,0 +1,124 @@
+# Supabase Data Viewer Project Setup
+
+## Overview
+
+This project is designed to create a lightweight viewer for member and financial data from a Supabase database. The setup includes all necessary configurations, dependencies, and instructions to ensure the project "just works."
+
+## Project Structure
+
+- **.cursor-next/templates/supabase-viewer.md**: Contains detailed setup instructions and context for the project.
+- **.cursor-next/rules.txt**: Defines the rules and best practices for the project.
+- **README.md**: Provides an overview, setup instructions, architecture details, and deployment guidelines.
+
+## Setup Instructions
+
+1. **Initialize the Project:**
+
+   - Navigate to your project directory:
+     ```bash
+     cd /Users/jg/vs-projects/vs-api
+     ```
+
+   - Initialize a new Node.js project:
+     ```bash
+     npm init -y
+     ```
+
+2. **Install Dependencies:**
+
+   - Install the necessary packages:
+     ```bash
+     npm install @supabase/supabase-js react react-dom typescript prettier
+     npm install --save-dev @types/react @types/react-dom @vitejs/plugin-react vite @types/node dotenv
+     ```
+
+3. **Set Up Directory Structure:**
+
+   - Create the required directories and copy template files:
+     ```bash
+     mkdir -p .cursor-next/templates
+     cp ../jg-lenders-main/.cursor-next/templates/supabase-viewer.md .cursor-next/templates/
+     cp ../jg-lenders-main/.cursor-next/rules.txt .cursor-next/
+     ```
+
+4. **Create Essential Files:**
+
+   - Create a `.gitignore` file:
+     ```bash
+     echo ".env" > .gitignore
+     echo "node_modules" >> .gitignore
+     echo "dist" >> .gitignore
+     ```
+
+   - Create an `.env.example` file:
+     ```bash
+     echo "VITE_SUPABASE_URL=https://ehdqmnkyiaoqdyifaqma.supabase.co" > .env.example
+     echo "VITE_SUPABASE_KEY=your_key_here" >> .env.example
+     ```
+
+5. **Initialize Git:**
+
+   - Set up Git and make the initial commit:
+     ```bash
+     git init
+     git add .cursor-next/ .gitignore
+     git commit -m "Initial commit: Project rules and templates"
+     ```
+
+6. **Push to GitHub:**
+
+   - Add the remote and push to GitHub:
+     ```bash
+     git remote add origin https://github.com/jgonis/vs-api.git
+     git branch -M main
+     git push -u origin main
+     ```
+
+7. **Run the Development Server:**
+
+   - Start the development server:
+     ```bash
+     npm run dev
+     ```
+
+## Deployment
+
+- **Local Build Test:**
+  ```bash
+  npm run build
+  npm run preview
+  ```
+
+- **Netlify Deployment:**
+  1. Install Netlify CLI:
+     ```bash
+     npm install -g netlify-cli
+     ```
+
+  2. Create `netlify.toml`:
+     ```toml
+     [build]
+       publish = "dist"
+       command = "npm run build"
+
+     [[redirects]]
+       from = "/*"
+       to = "/index.html"
+       status = 200
+     ```
+
+  3. Set up environment variables in Netlify:
+     - VITE_SUPABASE_URL: https://ehdqmnkyiaoqdyifaqma.supabase.co
+     - VITE_SUPABASE_KEY: [your-key]
+
+  4. Deploy:
+     ```bash
+     netlify build
+     netlify deploy
+     netlify deploy --prod
+     ```
+
+## Additional Notes
+
+- Ensure the `.env` file is updated with your actual Supabase credentials.
+- Follow the architecture and development guidelines in the README.md for best practices.
