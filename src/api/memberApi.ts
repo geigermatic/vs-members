@@ -1,5 +1,6 @@
 import { supabase } from './supabaseClient';
-import type { Member, FinancialHealthStats } from '../types/member';
+import type { Member } from '../types/member';
+import type { FinancialHealthStats } from '../types/financialStats';
 
 export const getMemberData = async (uuid: string): Promise<Member | null> => {
   const { data, error } = await supabase

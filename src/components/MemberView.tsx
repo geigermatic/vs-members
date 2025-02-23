@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { getMemberData } from '../api/memberApi';
 import type { Member } from '../types/member';
 
 const TEST_UUID = "dc922ded-d0a7-415a-9d4c-f1e8605fce92";
 
-const MemberView = () => {
+const MemberView: FC = () => {
   const [member, setMember] = useState<Member | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

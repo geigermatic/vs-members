@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { getFinancialStats } from '../api/memberApi';
 import type { FinancialHealthStats } from '../types/financialStats';
 
 const TEST_UUID = "dc922ded-d0a7-415a-9d4c-f1e8605fce92";
 
-const FinancialStats = () => {
+const FinancialStats: FC = () => {
   const [stats, setStats] = useState<FinancialHealthStats[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

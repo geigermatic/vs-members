@@ -145,6 +145,11 @@ Please help me create a React + TypeScript application for viewing member and fi
 5. Handle errors appropriately
 6. Use TypeScript strict mode
 7. Use real Supabase connection (no mock data)
+8. Use proper React 18 TypeScript patterns:
+   - Use FC type for components
+   - Import from 'react-dom/client'
+   - Use createRoot instead of render
+   - Remove unnecessary React imports
 
 ## Environment Variables
 ```env
@@ -158,6 +163,52 @@ Need interfaces for:
 2. Financial health statistics
 3. API metrics
 4. Request/response tracking
+5. React component types (FC)
+
+## TypeScript Configuration
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": ["vite/client"],
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+```
+
+## Component Template
+```typescript
+import { FC, useEffect, useState } from 'react';
+
+const ComponentName: FC = () => {
+  // Component logic here
+  return (
+    <div>
+      {/* Component JSX */}
+    </div>
+  );
+};
+
+export default ComponentName;
+```
 
 ## Required Files Structure
 ```
@@ -178,6 +229,21 @@ Need interfaces for:
   main.tsx
 ```
 
+## Package.json Scripts
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "netlify:dev": "netlify dev",
+    "netlify:build": "netlify build",
+    "netlify:deploy": "netlify deploy --prod"
+  }
+}
+```
+
 ## Data Models
 1. Member:
    - UUID
@@ -190,6 +256,21 @@ Need interfaces for:
    - Monthly records
    - Various financial metrics
    - Verascore calculations
+
+## Import Patterns
+1. React Components:
+   ```typescript
+   import { FC, useEffect, useState } from 'react';
+   ```
+2. Types:
+   ```typescript
+   import type { Member } from '../types/member';
+   import type { FinancialHealthStats } from '../types/financialStats';
+   ```
+3. API:
+   ```typescript
+   import { supabase } from './supabaseClient';
+   ```
 
 ## API Requirements
 1. Fetch member data by UUID

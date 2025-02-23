@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import MemberView from './components/MemberView';
 import FinancialStats from './components/FinancialStats';
 
-const App = () => {
+const App: FC = () => {
   return (
     <div>
       <h1>Supabase Data Viewer</h1>
