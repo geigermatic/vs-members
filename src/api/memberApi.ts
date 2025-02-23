@@ -22,4 +22,10 @@ export const getFinancialStats = async (uuid: string): Promise<FinancialHealthSt
 
   if (error) throw error;
   return data;
+};
+
+// Export the actual endpoints for reference
+export const API_ENDPOINTS = {
+  members: `${supabase.supabaseUrl}/rest/v1/members`,
+  financialStats: `${supabase.supabaseUrl}/rest/v1/financial_health_stats`
 }; 
