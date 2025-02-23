@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@your-org/core": "file:../vs-api/packages/core",
+    "@your-org/viewer": "file:../vs-api/packages/viewer",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+} 

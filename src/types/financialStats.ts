@@ -1,4 +1,5 @@
 export interface FinancialHealthStats {
+  [key: string]: string | number | boolean | null;
   id: string;
   uuid: string;
   member_name: string;

@@ -24,8 +24,8 @@ export const getFinancialStats = async (uuid: string): Promise<FinancialHealthSt
   return data;
 };
 
-// Export the actual endpoints for reference
+// Use the environment variable directly for the URL
 export const API_ENDPOINTS = {
-  members: `${supabase.supabaseUrl}/rest/v1/members`,
-  financialStats: `${supabase.supabaseUrl}/rest/v1/financial_health_stats`
+  members: `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/members`,
+  financialStats: `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/financial_health_stats`
 }; 

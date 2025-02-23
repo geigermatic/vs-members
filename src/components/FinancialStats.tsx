@@ -47,8 +47,6 @@ const FinancialStats: FC = () => {
   if (!stats.length) return <div className="text-sm text-slate-500">No financial stats found</div>;
 
   const latestStats = stats[0];
-
-  // Get all keys from the response object
   const allFields = Object.keys(latestStats).sort();
 
   return (
@@ -82,8 +80,8 @@ ORDER BY month DESC;`}
           <DataRow 
             key={field}
             field={field}
-            type={typeof latestStats[field]}
-            value={latestStats[field]}
+            type={typeof (latestStats as Record<string, unknown>)[field]}
+            value={(latestStats as Record<string, unknown>)[field]}
             description={getFieldDescription(field)}
           />
         ))}
