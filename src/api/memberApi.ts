@@ -28,4 +28,15 @@ export const getFinancialStats = async (uuid: string): Promise<FinancialHealthSt
 export const API_ENDPOINTS = {
   members: `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/members`,
   financialStats: `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/financial_health_stats`
+};
+
+// Add new function to get member list
+export const getAllMembers = async (): Promise<Member[]> => {
+  const { data, error } = await supabase
+    .from('members')
+    .select('uuid, member_name, first_name, last_name')
+    .order('member_name');
+
+  if (error) throw error;
+  return data;
 }; 

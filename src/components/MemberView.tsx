@@ -3,6 +3,10 @@ import { getMemberData } from '../api/memberApi';
 import type { Member } from '../types/member';
 import ApiDetails from './ApiDetails';
 
+interface MemberViewProps {
+  uuid: string;
+}
+
 const TEST_UUID = "dc922ded-d0a7-415a-9d4c-f1e8605fce92";
 
 const DataRow: FC<{ field: string; type: string; value: any; description?: string }> = ({
@@ -23,7 +27,7 @@ const DataRow: FC<{ field: string; type: string; value: any; description?: strin
   </div>
 );
 
-const MemberView: FC = () => {
+const MemberView: FC<MemberViewProps> = ({ uuid }) => {
   const [member, setMember] = useState<Member | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +35,7 @@ const MemberView: FC = () => {
   useEffect(() => {
     async function fetchMember() {
       try {
-        const data = await getMemberData(TEST_UUID);
+        const data = await getMemberData(uuid);
         setMember(data);
       } catch (e) {
         setError(e instanceof Error ? e.message : 'An error occurred');
@@ -40,7 +44,7 @@ const MemberView: FC = () => {
       }
     }
     fetchMember();
-  }, []);
+  }, [uuid]);
 
   if (loading) return <div className="text-sm text-slate-500 animate-pulse">Loading member data...</div>;
   if (error) return <div className="text-sm text-red-500 bg-red-50 p-2 rounded">{error}</div>;
@@ -55,10 +59,10 @@ const MemberView: FC = () => {
           query={`
 SELECT *
 FROM members
-WHERE uuid = '${TEST_UUID}'
+WHERE uuid = '${uuid}'
 LIMIT 1;`}
           params={{
-            uuid: TEST_UUID
+            uuid: uuid
           }}
         />
       </div>

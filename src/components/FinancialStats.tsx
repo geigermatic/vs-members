@@ -3,7 +3,9 @@ import { getFinancialStats } from '../api/memberApi';
 import type { FinancialHealthStats } from '../types/financialStats';
 import ApiDetails from './ApiDetails';
 
-const TEST_UUID = "dc922ded-d0a7-415a-9d4c-f1e8605fce92";
+interface FinancialStatsProps {
+  uuid: string;
+}
 
 const DataRow: FC<{ field: string; type: string; value: any; description?: string }> = ({
   field,
@@ -23,7 +25,7 @@ const DataRow: FC<{ field: string; type: string; value: any; description?: strin
   </div>
 );
 
-const FinancialStats: FC = () => {
+const FinancialStats: FC<FinancialStatsProps> = ({ uuid }) => {
   const [stats, setStats] = useState<FinancialHealthStats[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +33,7 @@ const FinancialStats: FC = () => {
   useEffect(() => {
     async function fetchStats() {
       try {
-        const data = await getFinancialStats(TEST_UUID);
+        const data = await getFinancialStats(uuid);
         setStats(data);
       } catch (e) {
         setError(e instanceof Error ? e.message : 'An error occurred');
@@ -40,7 +42,7 @@ const FinancialStats: FC = () => {
       }
     }
     fetchStats();
-  }, []);
+  }, [uuid]);
 
   if (loading) return <div className="text-sm text-slate-500 animate-pulse">Loading financial stats...</div>;
   if (error) return <div className="text-sm text-red-500 bg-red-50 p-2 rounded">{error}</div>;
@@ -58,10 +60,10 @@ const FinancialStats: FC = () => {
           query={`
 SELECT *
 FROM financial_health_stats
-WHERE uuid = '${TEST_UUID}'
+WHERE uuid = '${uuid}'
 ORDER BY month DESC;`}
           params={{
-            uuid: TEST_UUID,
+            uuid: uuid,
             orderBy: {
               column: 'month',
               direction: 'desc'
