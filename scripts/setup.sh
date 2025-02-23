@@ -1,4 +1,3 @@
-   cat > /Users/jg/vs-projects/vs-api/scripts/setup.sh << 'EOL'
    #!/bin/bash
 
    # Define project path
