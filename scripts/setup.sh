@@ -36,7 +36,3 @@
 
    # Start the development server
    npm run dev
-   EOL
-
-   # Make the script executable
-   chmod +x /Users/jg/vs-projects/vs-api/scripts/setup.sh
