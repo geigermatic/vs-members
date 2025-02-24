@@ -212,3 +212,118 @@ npm run preview
 2. Verify API connections work
 3. Test all data fetching
 4. Confirm no CORS issues
+
+## Debug Layout Component
+
+### Overview
+A reusable debug layout component that helps visualize grid structures and component sections during development.
+
+### Usage
+1. Add the component to your project:
+```tsx
+import { DebugLayout, DebugSection } from './components/debug/DebugLayout';
+
+const YourComponent = () => {
+  return (
+    <DebugLayout>
+      <div className="grid grid-cols-3">
+        <DebugSection 
+          label="Left Section" 
+          className="col-span-2"
+        >
+          {/* Your content */}
+        </DebugSection>
+        
+        <DebugSection 
+          label="Right Section" 
+          className="col-span-1"
+        >
+          {/* More content */}
+        </DebugSection>
+      </div>
+    </DebugLayout>
+  );
+};
+```
+
+2. Add required styles to your CSS:
+```css
+/* Debug styles */
+.debug-layout {
+  @apply outline outline-2 outline-red-500/50;
+}
+
+.debug-grid {
+  @apply outline outline-2 outline-blue-500/50 relative;
+}
+
+.debug-cell {
+  @apply outline outline-2 outline-green-500/50;
+}
+
+.debug-label {
+  @apply absolute -top-3 left-0 text-xs text-red-500 font-mono bg-white px-1;
+}
+```
+
+### Features
+- Toggle debug mode with a floating button
+- Visual outlines for layout sections
+- Section labels
+- Context-based state management
+- Non-intrusive when disabled
+
+### Extracting as a Standalone Package
+To use this component across projects:
+
+1. Create a new package:
+```bash
+mkdir debug-layout
+cd debug-layout
+npm init
+```
+
+2. Required files:
+```
+debug-layout/
+├── src/
+│   ├── DebugLayout.tsx     # Main component
+│   ├── styles.css          # Debug styles
+│   └── index.ts           # Exports
+├── package.json
+└── README.md
+```
+
+3. Dependencies:
+```json
+{
+  "name": "@your-org/debug-layout",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "tailwindcss": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
+```
+
+4. Usage in other projects:
+```bash
+npm install @your-org/debug-layout
+```
+
+```tsx
+import { DebugLayout, DebugSection } from '@your-org/debug-layout';
+import '@your-org/debug-layout/styles.css';
+```
+
+### Best Practices
+- Only include in development builds
+- Use meaningful section labels
+- Keep debug sections aligned with logical component structure
+- Remove debug sections before production deployment

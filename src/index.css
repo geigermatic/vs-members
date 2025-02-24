@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;
+
+/* Debug styles - remove in production */
+.debug-layout {
+  @apply outline outline-2 outline-red-500/50;
+}
+
+.debug-grid {
+  @apply outline outline-2 outline-blue-500/50 relative;
+}
+
+.debug-cell {
+  @apply outline outline-2 outline-green-500/50;
+}
+
+/* Add label styles */
+.debug-label {
+  @apply absolute -top-3 left-0 text-xs text-red-500 font-mono bg-white px-1;
+} 
