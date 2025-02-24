@@ -1,10 +1,13 @@
 import { FC, useState } from 'react';
 import MemberSearch from './components/MemberSearch';
+import MemberInfo from './components/MemberInfo';
 import MemberView from './components/MemberView';
 import FinancialStats from './components/FinancialStats';
+import type { Member } from './types/member';
 
 const App: FC = () => {
   const [selectedUuid, setSelectedUuid] = useState<string | null>(null);
+  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
 
   return (
     <div className="min-h-screen bg-slate-100 p-4 font-mono">
@@ -14,8 +17,18 @@ const App: FC = () => {
           Supabase Data Viewer
         </h1>
         
-        <div className="mb-4">
-          <MemberSearch onSelectMember={setSelectedUuid} />
+        <div className="mb-4 flex gap-4 items-start">
+          <div className="flex-1">
+            <MemberSearch 
+              onSelectMember={(member) => {
+                setSelectedUuid(member.uuid);
+                setSelectedMember(member);
+              }} 
+            />
+          </div>
+          <div className="w-80">
+            <MemberInfo member={selectedMember} />
+          </div>
         </div>
 
         {selectedUuid && (

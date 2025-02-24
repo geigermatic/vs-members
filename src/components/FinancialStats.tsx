@@ -14,9 +14,9 @@ const DataRow: FC<{ field: string; type: string; value: any; description?: strin
   description
 }) => (
   <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-100 hover:bg-slate-50">
-    <div className="col-span-3 text-slate-400 font-mono text-xs">{field}</div>
+    <div className="col-span-4 text-slate-400 font-mono text-xs">{field}</div>
     <div className="col-span-2 text-slate-500 font-mono text-xs">{type}</div>
-    <div className="col-span-7 text-slate-600 font-mono text-xs flex justify-between">
+    <div className="col-span-6 text-slate-600 font-mono text-xs flex justify-between">
       <span>{value?.toString() || 'null'}</span>
       {description && (
         <span className="text-slate-400 italic">{description}</span>
@@ -49,7 +49,11 @@ const FinancialStats: FC<FinancialStatsProps> = ({ uuid }) => {
   if (!stats.length) return <div className="text-sm text-slate-500">No financial stats found</div>;
 
   const latestStats = stats[0];
-  const allFields = Object.keys(latestStats).sort();
+  
+  // Create ordered fields array with uuid first, then rest alphabetically
+  const allFields = ['uuid', ...Object.keys(latestStats)
+    .filter(field => field !== 'uuid')
+    .sort()];
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-4">
@@ -74,9 +78,9 @@ ORDER BY month DESC;`}
       <div className="border-b border-slate-200 mb-3"></div>
       <div className="mt-3">
         <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-200 text-xs font-semibold">
-          <div className="col-span-3">Field</div>
+          <div className="col-span-4">Field</div>
           <div className="col-span-2">Type</div>
-          <div className="col-span-7">Value & Description</div>
+          <div className="col-span-6">Value & Description</div>
         </div>
         {allFields.map(field => (
           <DataRow 

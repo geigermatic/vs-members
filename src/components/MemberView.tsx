@@ -16,9 +16,9 @@ const DataRow: FC<{ field: string; type: string; value: any; description?: strin
   description
 }) => (
   <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-100 hover:bg-slate-50">
-    <div className="col-span-3 text-slate-400 font-mono text-xs">{field}</div>
+    <div className="col-span-4 text-slate-400 font-mono text-xs">{field}</div>
     <div className="col-span-2 text-slate-500 font-mono text-xs">{type}</div>
-    <div className="col-span-7 text-slate-600 font-mono text-xs flex justify-between">
+    <div className="col-span-6 text-slate-600 font-mono text-xs flex justify-between">
       <span>{value?.toString() || 'null'}</span>
       {description && (
         <span className="text-slate-400 italic">{description}</span>
@@ -69,9 +69,9 @@ LIMIT 1;`}
       <div className="border-b border-slate-200 mb-3"></div>
       <div className="mt-3">
         <div className="grid grid-cols-12 gap-2 py-1 border-b border-slate-200 text-xs font-semibold">
-          <div className="col-span-3">Field</div>
+          <div className="col-span-4">Field</div>
           <div className="col-span-2">Type</div>
-          <div className="col-span-7">Value & Description</div>
+          <div className="col-span-6">Value & Description</div>
         </div>
         <DataRow 
           field="uuid" 
@@ -101,22 +101,90 @@ LIMIT 1;`}
           value={member.email}
         />
         <DataRow 
-          field="dashboard_status" 
+          field="photo" 
           type="string" 
-          value={member.dashboard_status}
-          description="Current member status"
+          value={member.photo}
+          description="Profile photo URL"
         />
         <DataRow 
-          field="inst_member_since" 
-          type="date" 
-          value={member.inst_member_since}
-          description="Membership start date"
+          field="zipcode" 
+          type="string" 
+          value={member.zipcode}
+        />
+        <DataRow 
+          field="gender" 
+          type="string" 
+          value={member.gender}
+        />
+        <DataRow 
+          field="ethnicity" 
+          type="string" 
+          value={member.ethnicity}
+        />
+        <DataRow 
+          field="age" 
+          type="number" 
+          value={member.age}
+        />
+        <DataRow 
+          field="date_of_birth" 
+          type="string" 
+          value={member.date_of_birth}
+        />
+        <DataRow 
+          field="street_address" 
+          type="string" 
+          value={member.street_address}
+        />
+        <DataRow 
+          field="apartment" 
+          type="string" 
+          value={member.apartment}
+        />
+        <DataRow 
+          field="city" 
+          type="string" 
+          value={member.city}
+        />
+        <DataRow 
+          field="state" 
+          type="string" 
+          value={member.state}
         />
         <DataRow 
           field="yearly_gross_income" 
           type="number" 
           value={member.yearly_gross_income}
           description="Annual income"
+        />
+        <DataRow 
+          field="inst_member_since" 
+          type="string" 
+          value={member.inst_member_since}
+          description="Membership start date"
+        />
+        <DataRow 
+          field="dashboard_status" 
+          type="string" 
+          value={member.dashboard_status}
+          description="Current member status"
+        />
+        <DataRow 
+          field="inst_loan_advisor" 
+          type="string" 
+          value={member.inst_loan_advisor}
+          description="Assigned loan advisor"
+        />
+        <DataRow 
+          field="last_profile_edit" 
+          type="string" 
+          value={member.last_profile_edit}
+          description="Last profile update"
+        />
+        <DataRow 
+          field="phone_number" 
+          type="string" 
+          value={member.phone_number}
         />
       </div>
     </div>

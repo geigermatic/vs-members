@@ -4,14 +4,14 @@ export interface Member {
   first_name: string;
   last_name: string;
   email: string;
-  photo: string;
+  photo: string | null;
   zipcode: string;
   gender: string;
   ethnicity: string;
   age: number;
   date_of_birth: string;
   street_address: string;
-  apartment: string;
+  apartment: string | null;
   city: string;
   state: string;
   yearly_gross_income: number;

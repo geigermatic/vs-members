@@ -10,6 +10,7 @@ export const getMemberData = async (uuid: string): Promise<Member | null> => {
     .single();
 
   if (error) throw error;
+  console.log('Full member data:', data);
   return data;
 };
 
@@ -34,7 +35,7 @@ export const API_ENDPOINTS = {
 export const getAllMembers = async (): Promise<Member[]> => {
   const { data, error } = await supabase
     .from('members')
-    .select('uuid, member_name, first_name, last_name')
+    .select('uuid, member_name, first_name, last_name, email, dashboard_status')
     .order('member_name');
 
   if (error) throw error;

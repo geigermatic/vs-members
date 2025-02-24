@@ -3,7 +3,7 @@ import { getAllMembers } from '../api/memberApi';
 import type { Member } from '../types/member';
 
 interface MemberSearchProps {
-  onSelectMember: (uuid: string) => void;
+  onSelectMember: (member: Member) => void;
 }
 
 const MemberSearch: FC<MemberSearchProps> = ({ onSelectMember }) => {
@@ -32,7 +32,11 @@ const MemberSearch: FC<MemberSearchProps> = ({ onSelectMember }) => {
     <div className="w-full max-w-md">
       <select 
         className="w-full px-3 py-2 text-sm bg-white border border-slate-200 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-        onChange={(e) => onSelectMember(e.target.value)}
+        onChange={(e) => {
+          const member = members.find(m => m.uuid === e.target.value);
+          console.log('Selected member:', member);
+          if (member) onSelectMember(member);
+        }}
         defaultValue=""
       >
         <option value="" disabled>Select a member...</option>
