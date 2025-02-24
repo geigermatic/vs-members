@@ -26,7 +26,7 @@ const DataRow: FC<{ field: string; type: string; value: any; description?: strin
 );
 
 const FinancialStats: FC<FinancialStatsProps> = ({ uuid }) => {
-  const [stats, setStats] = useState<FinancialHealthStats[]>([]);
+  const [stats, setStats] = useState<FinancialHealthStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -34,7 +34,7 @@ const FinancialStats: FC<FinancialStatsProps> = ({ uuid }) => {
     async function fetchStats() {
       try {
         const data = await getFinancialStats(uuid);
-        setStats(data);
+        setStats(data[0]);
       } catch (e) {
         setError(e instanceof Error ? e.message : 'An error occurred');
       } finally {
@@ -46,9 +46,9 @@ const FinancialStats: FC<FinancialStatsProps> = ({ uuid }) => {
 
   if (loading) return <div className="text-sm text-slate-500 animate-pulse">Loading financial stats...</div>;
   if (error) return <div className="text-sm text-red-500 bg-red-50 p-2 rounded">{error}</div>;
-  if (!stats.length) return <div className="text-sm text-slate-500">No financial stats found</div>;
+  if (!stats) return <div className="text-sm text-slate-500">No financial stats found</div>;
 
-  const latestStats = stats[0];
+  const latestStats = stats;
   
   // Create ordered fields array with uuid first, then rest alphabetically
   const allFields = ['uuid', ...Object.keys(latestStats)
