@@ -7,8 +7,6 @@ interface MemberViewProps {
   uuid: string;
 }
 
-const TEST_UUID = "dc922ded-d0a7-415a-9d4c-f1e8605fce92";
-
 const DataRow: FC<{ field: string; type: string; value: any; description?: string }> = ({
   field,
   type,

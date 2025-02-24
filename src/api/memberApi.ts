@@ -35,9 +35,9 @@ export const API_ENDPOINTS = {
 export const getAllMembers = async (): Promise<Member[]> => {
   const { data, error } = await supabase
     .from('members')
-    .select('uuid, member_name, first_name, last_name, email, dashboard_status')
+    .select('*')
     .order('member_name');
 
   if (error) throw error;
-  return data;
+  return data as Member[];
 }; 
