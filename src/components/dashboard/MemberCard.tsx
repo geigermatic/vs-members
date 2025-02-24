@@ -33,40 +33,51 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
       <div className="bg-white rounded-lg shadow-sm p-6">
         {/* GRID 1: Header Grid */}
         <div className="grid grid-cols-3 gap-6">
+          {/* Section 1A: Now with internal grid */}
           <DebugSection 
             label="Section 1A: Name & Contact" 
             className="col-span-2"
           >
-            <h3 className="text-xl font-semibold">{member.member_name}</h3>
-            <div className="text-blue-600 text-sm">{member.email} | {member.phone_number}</div>
+            {/* Internal grid for 1A */}
+            <div className="grid grid-cols-2 gap-6">
+              {/* Left side: Member info */}
+              <div>
+                <h3 className="text-xl font-semibold">{member.member_name}</h3>
+                <div className="text-blue-600 text-sm">{member.email} | {member.phone_number}</div>
+              </div>
+
+              {/* Right side: Tabs */}
+              <div className="flex justify-end space-x-1">
+                <button
+                  className={`px-4 py-2 text-sm font-medium rounded-t-lg ${
+                    activeTab === 'summary'
+                      ? 'text-blue-600 border-b-2 border-blue-600'
+                      : 'text-slate-600 hover:text-slate-800'
+                  }`}
+                  onClick={() => setActiveTab('summary')}
+                >
+                  Summary
+                </button>
+                <button
+                  className={`px-4 py-2 text-sm font-medium rounded-t-lg ${
+                    activeTab === 'details'
+                      ? 'text-blue-600 border-b-2 border-blue-600'
+                      : 'text-slate-600 hover:text-slate-800'
+                  }`}
+                  onClick={() => setActiveTab('details')}
+                >
+                  Details
+                </button>
+              </div>
+            </div>
           </DebugSection>
 
+          {/* Section 1B: Now empty since tabs moved */}
           <DebugSection 
-            label="Section 1B: Tabs" 
+            label="Section 1B" 
             className="col-span-1"
           >
-            <div className="flex space-x-1">
-              <button
-                className={`px-4 py-2 text-sm font-medium rounded-t-lg ${
-                  activeTab === 'summary'
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-slate-600 hover:text-slate-800'
-                }`}
-                onClick={() => setActiveTab('summary')}
-              >
-                Summary
-              </button>
-              <button
-                className={`px-4 py-2 text-sm font-medium rounded-t-lg ${
-                  activeTab === 'details'
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-slate-600 hover:text-slate-800'
-                }`}
-                onClick={() => setActiveTab('details')}
-              >
-                Details
-              </button>
-            </div>
+            {/* This section is now available for other content */}
           </DebugSection>
         </div>
 
