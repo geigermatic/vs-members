@@ -3,6 +3,14 @@ import { getFinancialStats } from '../../api/memberApi';
 import type { Member } from '../../types/member';
 import type { FinancialHealthStats } from '../../types/financialStats';
 import { DebugLayout, DebugSection } from '../debug/DebugLayout';
+import { roundScore } from '../../utils/scoreCalculations';
+import { getCurrentScore, getHistoricalScores } from '../../api/scoreData';
+import { calculateScoreMetrics } from '../../utils/scoreCalculations';
+import { validateScoreData } from '../../utils/scoreValidation';
+import type { ScoreMetrics, ScoreHistory } from '../../api/scoreData';
+import { useScoreData } from '../../hooks/useScoreData';
+import { LoadingSpinner } from '../common/LoadingSpinner';
+import { ErrorMessage } from '../common/ErrorMessage';
 
 interface MemberCardProps {
   member: Member;
@@ -15,6 +23,7 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
   const [stats, setStats] = useState<FinancialHealthStats | null>(null);
   const [activeTab, setActiveTab] = useState<'summary' | 'details'>('summary');
   const [showDebug, setShowDebug] = useState(false);
+  const { scoreMetrics, isLoading, error } = useScoreData(member.uuid);
 
   useEffect(() => {
     async function fetchStats() {
@@ -27,6 +36,9 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
     }
     fetchStats();
   }, [member.uuid]);
+
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage message={error} />;
 
   return (
     <DebugLayout>
@@ -108,36 +120,59 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
                   label="Section 2A-1: Main Score" 
                   className="w-2/3"
                 >
-                  {/* Status Bar */}
-                  <div className="flex items-center text-white/90 mb-6">
-                    <span>Status:</span>
-                    <span className="flex items-center gap-1 ml-2">
-                      <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-                      {member.dashboard_status}
-                    </span>
-                    <span className="ml-4">Updated: {member.last_profile_edit}</span>
-                  </div>
+                  {/* Section 2A-1-1: Status Bar */}
+                  <DebugSection 
+                    label="Section 2A-1-1: Status Bar"
+                    className="mb-6"
+                  >
+                    <div className="flex items-center text-white/90">
+                      <span>Status:</span>
+                      <span className="flex items-center gap-1 ml-2">
+                        <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                        {member.dashboard_status}
+                      </span>
+                      <span className="ml-4">Updated: {member.last_profile_edit}</span>
+                    </div>
+                  </DebugSection>
 
-                  {/* Score and Progress Bar */}
-                  <div>
-                    <div className="text-7xl font-bold text-white mb-1">
-                      {stats?.verascore || '--'}
+                  {/* Section 2A-1-2: Score Display */}
+                  <DebugSection 
+                    label="Section 2A-1-2: Score Display"
+                    className="mb-4"
+                  >
+                    <div className="grid grid-cols-2 gap-4 items-end">
+                      {/* Score Number */}
+                      <DebugSection label="Score Value">
+                        <div className="text-7xl font-bold text-white">
+                          {scoreMetrics?.current_score ?? '--'}
+                        </div>
+                      </DebugSection>
+
+                      {/* Score Label */}
+                      <DebugSection label="Score Label">
+                        <div className="text-white font-bold tracking-[0.02em] text-[30px] leading-[41px]">
+                          LaborScore
+                        </div>
+                      </DebugSection>
                     </div>
-                    <div className="text-white/75">LaborScore</div>
+                  </DebugSection>
                     
-                    <div className="mt-4 max-w-sm">
-                      <div className="h-2 bg-black/20 rounded-full">
-                        <div 
-                          className="h-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full"
-                          style={{ width: `${stats?.verascore || 0}%` }}
-                        />
-                      </div>
-                      <div className="flex justify-between text-xs text-white/60 mt-1">
-                        <span>0</span>
-                        <span>100</span>
-                      </div>
+                  {/* Section 2A-1-3: Progress Bar */}
+                  <DebugSection 
+                    label="Section 2A-1-3: Progress Bar"
+                    className="mt-4 max-w-sm"
+                  >
+                    <div className="h-2 bg-black/20 rounded-full">
+                      <div 
+                        className="h-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full"
+                        style={{ width: `${scoreMetrics?.current_score || 0}%` }}
+                      />
                     </div>
-                  </div>
+                    <div className="flex justify-between text-xs text-white/60 mt-1">
+                      <span>0</span>
+                      <span>100</span>
+                    </div>
+                  </DebugSection>
                 </DebugSection>
 
                 {/* Section 2A-2: Historical & Actions */}
@@ -166,7 +201,7 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
                       {/* 6 Month Score */}
                       <DebugSection label="6 Month" className="text-center">
                         <div className="text-3xl font-bold text-white">
-                          {stats?.last_6_months || '--'}
+                          {scoreMetrics?.six_month_avg || '--'}
                         </div>
                         <div className="text-white/75 text-sm">last 6 months</div>
                       </DebugSection>
@@ -174,7 +209,7 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
                       {/* 12 Month Score */}
                       <DebugSection label="12 Month" className="text-center">
                         <div className="text-3xl font-bold text-white">
-                          {stats?.last_12_months || '--'}
+                          {scoreMetrics?.twelve_month_avg || '--'}
                         </div>
                         <div className="text-white/75 text-sm">last 12 months</div>
                       </DebugSection>
