@@ -22,6 +22,16 @@ const Header: FC = () => {
           <h1 className="hidden md:block text-slate-600 font-medium">
             Labor Credit Union Members
           </h1>
+
+          {/* Add Data Viewer Link */}
+          <div className="hidden md:block h-6 w-px bg-slate-200" />
+          
+          <a 
+            href="?view=data"
+            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+          >
+            Data Viewer
+          </a>
         </div>
 
         {/* Right section: User info and VeraScore badge */}
