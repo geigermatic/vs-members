@@ -126,12 +126,10 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
                     className="mb-6"
                   >
                     <div className="flex items-center text-white/90">
-                      <span>Status:</span>
-                      <span className="flex items-center gap-1 ml-2">
+                      <span className="flex items-center gap-1">
                         <span className="w-2 h-2 bg-green-400 rounded-full"></span>
                         {member.dashboard_status}
                       </span>
-                      <span className="ml-4">Updated: {member.last_profile_edit}</span>
                     </div>
                   </DebugSection>
 
@@ -186,9 +184,7 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
                     className="mb-6"
                   >
                     <div className="text-right">
-                      <div className="inline-block px-3 py-1 bg-blue-800/50 rounded-full text-white/90 text-sm">
-                        {member.dashboard_status}
-                      </div>
+                      {/* Reserved for future content */}
                     </div>
                   </DebugSection>
 
