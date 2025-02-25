@@ -7,11 +7,12 @@ export interface ScoreHistory {
   uuid: string;
   month: string;
   verascore: number;
-  dti_ratio: number;
-  cash_lr_ratio: number;
-  spending_cf_ratio: number;
-  savings_s_ratio: number;
-  payment_history_late_payment_factor: number;
+  factor_dti: number;
+  factor_cash_on_hand: number;
+  factor_spending: number;
+  factor_savings: number;
+  factor_debt: number;
+  factor_payment_history: number;
 }
 
 export interface ScoreMetrics {
@@ -35,11 +36,12 @@ export const getHistoricalScores = async (
       uuid,
       month,
       verascore,
-      dti_ratio,
-      cash_lr_ratio,
-      spending_cf_ratio,
-      savings_s_ratio,
-      payment_history_late_payment_factor
+      factor_dti,
+      factor_cash_on_hand,
+      factor_spending,
+      factor_savings,
+      factor_debt,
+      factor_payment_history
     `)
     .eq('uuid', uuid)
     .order('month', { ascending: false })
