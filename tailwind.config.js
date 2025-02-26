@@ -14,6 +14,7 @@ module.exports = {
         brand: {
           blue: '#1C4583',
           purple: '#6B4499',
+          link: '#007DB5',
         }
       }
     },

@@ -42,7 +42,7 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
 
   return (
     <DebugLayout>
-      <div className="bg-white rounded-lg shadow-sm px-3 py-6">
+      <div className="bg-white rounded-lg shadow-sm px-3 pt-6 pb-3">
         {/* GRID 1: Header Grid */}
         <div className="grid grid-cols-3 gap-6">
           {/* Section 1A: Now with internal grid */}
@@ -57,10 +57,10 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
                 label="Section 1A-1: Member Info" 
                 className="col-span-1"
               >
-                <h3 className="text-xl font-semibold">
+                <h3 className="text-[30px] font-semibold">
                   {member.first_name} {member.last_name}
                 </h3>
-                <div className="text-blue-600 text-sm">{member.email} | {member.phone_number}</div>
+                <div className="text-brand-link text-sm">{member.email} | {member.phone_number}</div>
               </DebugSection>
 
               {/* Section 1A-2: Tabs */}
@@ -72,34 +72,38 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
                   <button
                     className={`px-4 py-2 text-sm font-medium rounded-t-lg ${
                       activeTab === 'summary'
-                        ? 'text-blue-600 border-b-2 border-blue-600'
+                        ? 'text-brand-purple border-b-2 border-brand-purple'
                         : 'text-slate-600 hover:text-slate-800'
                     }`}
                     onClick={() => setActiveTab('summary')}
                   >
-                    Summary
+                    Member Summary
                   </button>
                   <button
                     className={`px-4 py-2 text-sm font-medium rounded-t-lg ${
                       activeTab === 'details'
-                        ? 'text-blue-600 border-b-2 border-blue-600'
+                        ? 'text-brand-purple border-b-2 border-brand-purple'
                         : 'text-slate-600 hover:text-slate-800'
                     }`}
                     onClick={() => setActiveTab('details')}
                   >
-                    Details
+                    Factor Details
                   </button>
                 </div>
               </DebugSection>
             </div>
           </DebugSection>
 
-          {/* Section 1B: Now empty since tabs moved */}
+          {/* Section 1B: Member Since info */}
           <DebugSection 
             label="Section 1B" 
             className="col-span-1"
           >
-            {/* This section is now available for other content */}
+            <div className="flex justify-end">
+              <div className="text-sm text-slate-600">
+                Member Since: {member.inst_member_since}
+              </div>
+            </div>
           </DebugSection>
         </div>
 
@@ -237,23 +241,12 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
           {/* Section 2B: Member Stats Panel */}
           <DebugSection 
             label="Section 2B: Member Stats" 
-            className="col-span-1"
+            className="col-span-1 flex items-center"
           >
-            {/* Section 2B-1: Member Since */}
-            <DebugSection 
-              label="Section 2B-1: Member Since" 
-              className="mb-6"
-            >
-              <div className="text-sm text-right">
-                <div className="text-slate-600">
-                  Member Since: {member.inst_member_since}
-                </div>
-              </div>
-            </DebugSection>
-
             {/* Section 2B-2: Stats Grid */}
             <DebugSection 
               label="Section 2B-2: Stats Grid"
+              className="w-full"
             >
               <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                 {/* Section 2B-2-1: Income */}
@@ -282,14 +275,14 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
                   </div>
                 </DebugSection>
 
-                {/* Section 2B-2-4: View Details */}
-                <DebugSection label="Details">
+                {/* Section 2B-2-4: View Financials */}
+                <DebugSection label="Financials">
                   <div className="flex items-end">
                     <button
                       onClick={() => setIsExpanded(!isExpanded)}
                       className="text-blue-600 hover:text-blue-700 flex items-center gap-1"
                     >
-                      View Details
+                      View Financials
                       <svg className={`w-5 h-5 transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
