@@ -42,7 +42,7 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
 
   return (
     <DebugLayout>
-      <div className="bg-white rounded-lg shadow-sm p-6">
+      <div className="bg-white rounded-lg shadow-sm px-3 py-6">
         {/* GRID 1: Header Grid */}
         <div className="grid grid-cols-3 gap-6">
           {/* Section 1A: Now with internal grid */}
@@ -107,13 +107,13 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
         <div className="h-6"></div>
 
         {/* GRID 2: Content Grid */}
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-3">
           {/* Section 2A: Blue Score Panel */}
           <DebugSection 
             label="Section 2A: Blue Score Panel" 
             className="col-span-2"
           >
-            <div className="bg-gradient-to-br from-blue-900 to-blue-800 p-6 rounded-lg">
+            <div className="bg-gradient-to-b from-brand-blue from-0% via-brand-blue via-75% to-brand-purple to-100% px-6 py-9 rounded-lg">
               <div className="flex gap-6">
                 {/* Section 2A-1: Main Score */}
                 <DebugSection 
@@ -123,7 +123,7 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
                   {/* Section 2A-1-1: Status Bar */}
                   <DebugSection 
                     label="Section 2A-1-1: Status Bar"
-                    className="mb-6"
+                    className="-mt-3 mb-6"
                   >
                     <div className="flex items-center text-white/90">
                       <span className="flex items-center gap-1">
@@ -136,12 +136,12 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
                   {/* Section 2A-1-2: Score Display */}
                   <DebugSection 
                     label="Section 2A-1-2: Score Display"
-                    className="mb-4"
+                    className="mb-4 mt-9"
                   >
-                    <div className="grid grid-cols-2 gap-4 items-end">
+                    <div className="grid grid-cols-[160px_1fr] items-end gap-2">
                       {/* Score Number */}
                       <DebugSection label="Score Value">
-                        <div className="text-7xl font-bold text-white">
+                        <div className="text-7xl font-bold text-white text-right pr-[10%]">
                           {scoreMetrics?.current_score ?? '--'}
                         </div>
                       </DebugSection>
@@ -214,16 +214,16 @@ const MemberCard: FC<MemberCardProps> = ({ member, onAssist, onEmail }) => {
 
                   {/* Section 2A-2-3: Action Buttons */}
                   <DebugSection label="Section 2A-2-3: Actions">
-                    <div className="space-y-2">
+                    <div className="space-y-7">
                       <button
                         onClick={onAssist}
-                        className="w-full py-2 bg-purple-500 text-white font-medium rounded hover:bg-purple-600"
+                        className="w-full py-2 bg-brand-purple text-white font-medium rounded hover:bg-brand-purple/80 text-[13px]"
                       >
                         ASSIST MEMBER
                       </button>
                       <button
                         onClick={onEmail}
-                        className="w-full py-2 bg-blue-500 text-white font-medium rounded hover:bg-blue-600"
+                        className="w-full py-2 bg-blue-500 text-white font-medium rounded hover:bg-blue-600 text-[13px]"
                       >
                         EMAIL MEMBER
                       </button>

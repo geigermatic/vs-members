@@ -14,7 +14,7 @@ export const DataViewer: FC = () => {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-xl font-bold text-slate-700 mb-4 flex items-center">
           <span className="bg-blue-500 w-2 h-2 rounded-full mr-2"></span>
-          Supabase Data Viewer
+          LCU Data Viewer
         </h1>
         
         <div className="mb-4 flex gap-4 items-start">
